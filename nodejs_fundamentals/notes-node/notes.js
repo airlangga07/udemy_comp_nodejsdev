@@ -5,9 +5,3 @@ module.exports.addNote = () => {
   console.log('addNote');
   return 'New note.';
 };
-
-// course challenge, add a function that adds two variables and return it
-module.exports.add = (a, b) => {
-  console.log(`retrieved value a: ${a} and retrieved value b: ${b}`)
-  return a + b;
-}
