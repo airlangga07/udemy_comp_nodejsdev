@@ -53,7 +53,14 @@ var getNote = (title) => {
 }
 
 var removeNote = (title) => {
-  console.log("Removing note", title);
+  // fetch notes
+  var notes = fetchNotes();
+  // filter notes removing the one with title of argument
+  var resultsNote = notes.filter((note) => note.title !== title);
+  // save new notes array
+  saveNotes(resultsNote);
+
+  return notes.length !== resultsNote.length;
 }
 
 module.exports = { 
