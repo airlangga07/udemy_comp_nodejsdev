@@ -66,7 +66,7 @@ var removeNote = (title) => {
 
   return notes.length !== resultsNote.length;
 }
-
+debugger;
 var logNote = (note) => {
   console.log("------------");
   console.log(`Title : ${note.title}`);
