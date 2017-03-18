@@ -20,8 +20,14 @@ request({
   url: url,
   json: true
 }, (err, res, body) => {
-  var jsonData = body.results[0];
-  console.log(`Address: ${jsonData.formatted_address}`);
-  console.log(`Location Latitude: ${jsonData.geometry.location.lat}`);
-  console.log(`Location Longitude: ${jsonData.geometry.location.lng}`);
-})
+  if (err) {
+    console.log("unable to connect to google servers.");
+  } else if (body.status === "ZERO_RESULTS") {
+    console.log("unable to find that address");
+  } else if (body.status === "OK") {
+    var jsonData = body.results[0];
+    console.log(`Address: ${jsonData.formatted_address}`);
+    console.log(`Location Latitude: ${jsonData.geometry.location.lat}`);
+    console.log(`Location Longitude: ${jsonData.geometry.location.lng}`);  
+  }
+});
