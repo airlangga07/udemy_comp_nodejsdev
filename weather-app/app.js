@@ -1,10 +1,23 @@
 const request = require("request");
+const yargs   = require("yargs");
 
-// takes 2 arguments
-// 1. options objects
-// 2. callback function when the data is received
+const argv    = yargs
+  .options({
+    address: {
+      describe: "Address to fetch weather for.",
+      demand: true,
+      alias: 'a',
+      string: true
+    }
+  })
+  .help().alias('help', 'h')
+  .argv;
+
+var address = encodeURIComponent(argv.address);
+var url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}`;
+
 request({
-  url: "https://maps.googleapis.com/maps/api/geocode/json?address=1301%20lombard%20street%20philadelphia",
+  url: url,
   json: true
 }, (err, res, body) => {
   var jsonData = body.results[0];
