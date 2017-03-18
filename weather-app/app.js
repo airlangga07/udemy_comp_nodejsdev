@@ -27,7 +27,6 @@ geocode.geocodeAddress(argv.address, (errMessage, results) => {
         console.log("Apparent Temp: " + results.apparent);
         console.log("Humidity: " + results.humidity);  
       }
-      
     });
   }
 });
