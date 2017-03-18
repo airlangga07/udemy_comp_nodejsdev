@@ -1,4 +1,4 @@
-var request = require("request");
+const request = require("request");
 
 var geocodeAddress = (suppliedAddress, callback) => {
   var address = encodeURIComponent(suppliedAddress);
@@ -19,10 +19,6 @@ var geocodeAddress = (suppliedAddress, callback) => {
         latitude: jsonData.geometry.location.lat,
         longitude: jsonData.geometry.location.lng
       });
-      
-      console.log(`Address: ${jsonData.formatted_address}`);
-      console.log(`Location Latitude: ${jsonData.geometry.location.lat}`);
-      console.log(`Location Longitude: ${jsonData.geometry.location.lng}`);  
     }
   });
 }
