@@ -7,5 +7,8 @@ request({
   url: "https://maps.googleapis.com/maps/api/geocode/json?address=1301%20lombard%20street%20philadelphia",
   json: true
 }, (err, res, body) => {
-  console.log(JSON.stringify(body, undefined, 2));
+  var jsonData = body.results[0];
+  console.log(`Address: ${jsonData.formatted_address}`);
+  console.log(`Location Latitude: ${jsonData.geometry.location.lat}`);
+  console.log(`Location Longitude: ${jsonData.geometry.location.lng}`);
 })
