@@ -1,17 +1,24 @@
 const express = require("express");
+const pug     = require("pug");
 var app       = express();
+
+app.set("view engine", "pug");
 
 app.use(express.static(__dirname + "/public"));
 
 app.get("/", (req, res) => {
-  res.send({
-    name: "Andrew",
-    likes: [ 'Biking', 'reading' ]
-  })
+  res.render("home", {
+    pageTitle: "Home Page",
+    currentYear: new Date().getFullYear(),
+    welcomeMessage: "Hello Welcome to our page!"
+  });
 });
 
 app.get("/about", (req, res) => {
-  res.send("About page.")
+  res.render("about", { 
+    pageTitle: "About Page",
+    currentYear: new Date().getFullYear()
+  })
 });
 
 app.get("/bad", (req, res) => {
