@@ -9,6 +9,10 @@
   "author": "Mikael Airlangga",
   "license": "ISC",
   "devDependencies": {
+    "expect": "^1.20.2",
     "mocha": "^2.5.3"
+  },
+  "dependencies": {
+    "expect": "^1.20.2"
   }
 }
