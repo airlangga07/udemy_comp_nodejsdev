@@ -1,4 +1,15 @@
-const MongoClient = require("mongodb").MongoClient;
+// const MongoClient = require("mongodb").MongoClient;
+const { MongoClient, ObjectID } = require("mongodb");
+
+// accesing ObjectID class from Mongo
+var obj = new ObjectID();
+console.log(obj);
+
+// object destructuring, pulling out object property and directly assign it to variable, 
+// available on ES6
+var user = {name: "Andrew", age: 25};
+var {name} = user;
+console.log(name);
 
 MongoClient.connect("mongodb://localhost:27017/TodoApp", (err, db) => {
   if (err) {
@@ -26,7 +37,7 @@ MongoClient.connect("mongodb://localhost:27017/TodoApp", (err, db) => {
     if (err) {
       return console.log("Unable to insert data", err);
     }
-    console.log(JSON.stringify(result.ops, undefined, 2));
+    console.log(JSON.stringify(result.ops[0]._id.getTimestamp()));
   })
 
   db.close();
