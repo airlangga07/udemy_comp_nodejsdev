@@ -29,16 +29,16 @@ MongoClient.connect("mongodb://localhost:27017/TodoApp", (err, db) => {
   // });
 
   // insert new doc into users
-  db.collection('Todos').insertOne({
-    name: "Mikael Airlangga",
-    age: 27,
-    location: "singapore"
-  }, (err, result) => {
-    if (err) {
-      return console.log("Unable to insert data", err);
-    }
-    console.log(JSON.stringify(result.ops[0]._id.getTimestamp()));
-  })
+  // db.collection('Users').insertOne({
+  //   name: "Mikael Airlangga",
+  //   age: 27,
+  //   location: "singapore"
+  // }, (err, result) => {
+  //   if (err) {
+  //     return console.log("Unable to insert data", err);
+  //   }
+  //   console.log(JSON.stringify(result.ops[0]._id.getTimestamp()));
+  // })
 
   db.close();
 });
