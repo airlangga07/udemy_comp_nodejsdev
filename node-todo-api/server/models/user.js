@@ -32,6 +32,7 @@ var UserSchema = new mongoose.Schema({
   }]
 });
 
+// .methods is instance method for all object underlying it
 // override the native Mongoose method toJSON which modify the the return value
 UserSchema.methods.toJSON = function () {
   var user = this;
@@ -52,6 +53,29 @@ UserSchema.methods.generateAuthToken = function () {
 
   return user.save().then(() => {
     return token; 
+  })
+}
+
+// .statics is model method
+UserSchema.statics.findByToken = function (token) {
+  var User = this;
+  var decoded;
+
+  try {
+    decoded = jwt.verify(token, 'abc123');
+  } catch (e) {
+    return Promise.reject();
+    // similar like: 
+    // return new Promise((resolve, reject) => {
+    //   reject();
+    // })
+  }
+
+  // to access the nested object properties, wrap it with ''
+  return User.findOne({
+    _id: decoded._id,
+    'tokens.token': token,
+    'tokens.access': 'auth'
   })
 }
 
