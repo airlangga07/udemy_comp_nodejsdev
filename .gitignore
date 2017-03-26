@@ -94,3 +94,6 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# Custom Config Files
+node-todo-api/server/config/config.json
