@@ -39,12 +39,15 @@ app.get("/todos", authenticate, (req, res) => {
   })
 })
 
-app.get("/todos/:id", (req, res) => {
+app.get("/todos/:id", authenticate, (req, res) => {
   if (!ObjectID.isValid(req.params.id)) {
     return res.status(404).send();
   }
 
-  Todo.findById(req.params.id).then((todo) => {
+  Todo.findOne({
+    _id: req.params.id,
+    _creator: req.user._id
+  }).then((todo) => {
     if (!todo) {
       return res.status(404).send();
     }
@@ -54,12 +57,15 @@ app.get("/todos/:id", (req, res) => {
   })
 })
 
-app.delete("/todos/:id", (req, res) => {
+app.delete("/todos/:id", authenticate, (req, res) => {
   if (!ObjectID.isValid(req.params.id)) {
     return res.status(404).send();
   }
 
-  Todo.findByIdAndRemove(req.params.id).then((todo) => {
+  Todo.findOneAndRemove({
+    _id: req.params.id,
+    _creator: req.user._id
+  }).then((todo) => {
     if (!todo) {
       return res.status(404).send();
     }
@@ -69,7 +75,7 @@ app.delete("/todos/:id", (req, res) => {
   })
 })
 
-app.patch("/todos/:id", (req, res) => {
+app.patch("/todos/:id", authenticate, (req, res) => {
   var id = req.params.id;
   // pull off the propoerties from the body using .pick, it takes an object, and takes an array of the body if they exist
   var body = _.pick(req.body, ['text', 'completed']);
@@ -87,7 +93,7 @@ app.patch("/todos/:id", (req, res) => {
     body.completedAt = null;
   }
 
-  Todo.findByIdAndUpdate(id, {$set: body}, {new: true}).then((todo) => {
+  Todo.findOneAndUpdate({_id: id, _creator: req.user._id}, {$set: body}, {new: true}).then((todo) => {
     if (!todo) {
       return res.status(404).send();
     }
